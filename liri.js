@@ -22,7 +22,6 @@ var defaultSong = "The Sign";
 
 
 //Switch Case to select one of many code blocks to be executed 
-
 switch (command) {
   case "concert-this":
     getBands(value)
