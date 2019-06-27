@@ -144,10 +144,13 @@ function getMovies(movieName) {
 function doWhatItSays() {
   // readFile with fs 
   fs.readFile("random.txt", "uft8", function (err, data) {
-    data = data.split(",");
+    if (err) throw err; {
+      data = data.split(",");
+      var command = data[0];
+      var value = data[1];
+      callThis(command, value);
+    }
 
-    var command = data[0];
-    var value = data[1];
 
     //getSongs
     switch (command) {
@@ -170,3 +173,18 @@ function doWhatItSays() {
   });
 
 }
+
+//callback function - invokes some kind of routine or action 
+
+function callThis(callback, para) {
+  var search = ['getConcert', 'getSongs', 'getMovies'];
+  if(search.indexOf(callback) !== -1) {
+    callback = eval(callback);
+    callback(para);
+  }
+  else {
+    console.log("error occurred");
+  }
+}
+
+search(callThis);
