@@ -118,7 +118,7 @@ function getMovies(movieName) {
         Title of the movie: ${response.data.Title}
         Year the movie came out: ${response.data.Year}
         IMDB Rating of the movie: ${response.data.Rated}
-        Rotten Tomatoes Rating of the movie: ${response.data.Rating[1].value}
+        Rotten Tomatoes Rating of the movie: ${response.data.Ratings[1].Value}
         Country where the movie was produced: ${response.data.Country}
         Language of the movie: ${response.data.Language}
         Plot of the movie: ${response.data.Plot}
@@ -168,5 +168,5 @@ function doWhatItSays() {
     }
 
   });
-  
+
 }
