@@ -94,15 +94,21 @@ function getSongs(songName) {
       return console.log('Error occurred:' + error);
     }
 
-    // the Artist(s)
-    console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
-    //The song's name
-    console.log("Song:" + data.tracks.items[0].name);
-    // A preview link of the song from Spotify
-    console.log("Preview Link:" + data.tracks.item[0].preview_url);
-    // The album that the song is from
-    console.log("Album:" + data.tracks.items[0].album.name + '\n');
 
+    for (var index in data.tracks.items) {
+      for (var artist in data.tracks.items[index].artists) {
+        // the Artist(s)
+        console.log("Artist: " + data.tracks.items[index].artists[artist].name);
+      };
+
+      //The song's name
+      console.log("Song:" + data.tracks.items[index].name);
+      // A preview link of the song from Spotify
+      console.log("Preview Link:" + data.tracks.items[index].preview_url);
+      // The album that the song is from
+      console.log("Album:" + data.tracks.items[index].album.name + '\n');
+
+    }
 
   });
 };
@@ -143,7 +149,7 @@ function getMovies(movieName) {
 
 function doWhatItSays() {
   // readFile with fs 
-  fs.readFile("random.txt", "uft8", function (err, data) {
+  fs.readFile("random.txt", "utf8", function (err, data) {
     if (err) throw err; {
       data = data.split(",");
       var command = data[0];
@@ -178,13 +184,10 @@ function doWhatItSays() {
 
 function callThis(callback, para) {
   var search = ['getConcert', 'getSongs', 'getMovies'];
-  if(search.indexOf(callback) !== -1) {
+  if (search.indexOf(callback) !== -1) {
     callback = eval(callback);
     callback(para);
-  }
-  else {
+  } else {
     console.log("error occurred");
   }
 }
-
-search(callThis);
