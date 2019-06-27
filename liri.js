@@ -13,8 +13,8 @@ var axios = require("axios");
 
 
 //command and input 
-var command = process.argv[2];
-var input = process.argv[3];
+var command = process.argv[2].toLowerCase();
+var input = process.argv.splice(3).join(' ');
 
 //default movie & song 
 var defaultMovie = "Mr. Nobody";
@@ -24,12 +24,13 @@ var defaultSong = "The Sign";
 //Switch Case to select one of many code blocks to be executed 
 switch (command) {
   case "concert-this":
-    getBands(value)
+    getConcert(value)
 
     break;
   case "spotify-this-song":
     if (value === "") {
       value = defaultSong
+      console.log("Please input an Artist")
     }
     getSongs(value)
     break;
@@ -38,6 +39,7 @@ switch (command) {
     //if user input is not added, default to defaultMovie
     if (value === "") {
       value = defaultMovie
+      console.log("Please input a Movie")
     }
     getMovies(value)
     break;
@@ -49,35 +51,67 @@ switch (command) {
     break;
 }
 
-// CONCERT-THIS : getBands function 
+// CONCERT-THIS : getConcert function 
 
-function getBands(artist) {
+function getConcert(artist) {
   //axios
   // using get to grab from the URL
   axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
     .then(function (response) {
       console.log("Name of the Venue: " + response.data[0].venue.name)
       console.log("Location: " + response.data[0].venue.city)
-      
+
       //using MOMENT to format the eventDate 
       var eventDate = moment(response.data[0].datatime).format('MM/DD/YYYY')
-      
-      console.log("Date of Event: " + eventDate)
-      
-      
-      
+
+      console.log("Date of Event: " + eventDate);
+
       // console.log(response);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err);
     });
 
 }
 
 
+// Spotify-this-song : getSongs function 
+
+function getSongs(songName) {
+
+  // if user hasn't put in a song, put in the defaultSong 
+  if (songName === "") {
+    //this is the default song 
+    songName = "The sign";
+  }
+
+  // searching in spotify 
+
+  spotify.search({
+    type: 'track',
+    query: 'songName',
+    limit: 20
+  }, function (error, data) {
+    if (error) {
+      return console.log('Error occurred:' + error);
+    }
+
+    // the Artist(s)
+    console.log("Artist: " + data.tracks.items[0].album.artists[0].name)
+    //The song's name
+    console.log("Song:" + data.tracks.items[0].name)
+    // A preview link of the song from Spotify
+    console.log("Preview Link:" + data.tracks.item[0].preview_url)
+    // The album that the song is from
+    console.log("Album:" + data.tracks.items[0].album.name)
 
 
-// spotify-this-song
+  });
+};
+
+
+
+
 
 // movie-this
 
