@@ -111,10 +111,35 @@ function getSongs(songName) {
 
 
 
+// MOVE-THIS : function getMovies 
 
+function getMovies(movieName) {
+  axios.get("http://www.imdb.com/title/tt0485947/" + movieName)
+    .then(function (response) {
+      //console.log(response.data)
 
-// movie-this
+      var results = ` 
+        Title of the movie: ${response.data.Title}
+        Year the movie came out: ${response.data.Year}
+        IMDB Rating of the movie: ${response.data.Rated}
+        Rotten Tomatoes Rating of the movie: ${response.data.Rating[1].value}
+        Country where the movie was produced: ${response.data.Country}
+        Language of the movie: ${response.data.Language}
+        Plot of the movie: ${response.data.Plot}
+        Actors in the movie: ${response.data.Actors}`;
 
-//http://www.imdb.com/title/tt0485947/
+      console.log(results);
+
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+  // if there isn't an user input : defaultMovie
+  if (movieName === "Mr.Nobody") {
+    console.log("-------------")
+    console.log("If you haven't watched 'Mr. Nobody', then you should: http://www.imdb.com/title/tt0485947/");
+  };
+
+}
 
 // do-what-it-says
