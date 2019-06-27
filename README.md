@@ -105,7 +105,7 @@ LIRI searches Bands in Town for concerts, Spotify for songs, and OMDB for movies
 ------
 To see how LIRI works: 
 
-<img scr="./assets/image/lIRI.png">
+![alt text](https://github.com/meghanmullally/LIRI/blob/master/assets/image/LIRI.png?raw=true)
 
 
  ### Author 
